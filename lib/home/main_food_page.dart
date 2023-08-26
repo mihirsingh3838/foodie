@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/home/food_page_body.dart';
 import 'package:foodie/utils/colors.dart';
+import 'package:foodie/widgets/big_text.dart';
+import 'package:foodie/widgets/small_text.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({super.key});
@@ -21,10 +24,18 @@ class _MainFoodPageState extends State<MainFoodPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     children: [
-                      Text('Country'),
-                      Text('City'),
+                      BigText(text: 'India', color: AppColors.mainColor),
+                      const Row(
+                        children: [
+                          SmallText(
+                            text: 'Allahabad',
+                            color: Colors.black54,
+                          ),
+                          Icon(Icons.arrow_drop_down)
+                        ],
+                      ),
                     ],
                   ),
                   Center(
@@ -45,6 +56,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
           ),
+          const FoodPageBody(),
         ],
       ),
     );
