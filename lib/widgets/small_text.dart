@@ -1,3 +1,4 @@
+//Setting up a font style for small text so that same could be used everywhere in app
 import 'package:flutter/material.dart';
 
 // if error in future remove final from size and overflow

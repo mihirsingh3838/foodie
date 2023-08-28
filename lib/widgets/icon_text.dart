@@ -1,4 +1,6 @@
+//Setting up icons which are being used several times
 import 'package:flutter/material.dart';
+import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/small_text.dart';
 
 class IconText extends StatelessWidget {
@@ -17,9 +19,17 @@ class IconText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: iconColor,),
-        const SizedBox(width: 5,),
-        SmallText(text: text,)
+        Icon(
+          icon,
+          color: iconColor,
+          size: Dimensions.iconSize24,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        SmallText(
+          text: text,
+        )
       ],
     );
   }

@@ -1,6 +1,9 @@
+//Creating home page for the app
+
 import 'package:flutter/material.dart';
 import 'package:foodie/home/food_page_body.dart';
 import 'package:foodie/utils/colors.dart';
+import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/small_text.dart';
 
@@ -19,8 +22,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
         children: [
           Container(
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              margin: const EdgeInsets.only(top: 45, bottom: 15),
+              padding: EdgeInsets.only(
+                  left: Dimensions.width20, right: Dimensions.width20),
+              margin: EdgeInsets.only(
+                  top: Dimensions.height45, bottom: Dimensions.height15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -40,15 +45,17 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   ),
                   Center(
                     child: Container(
-                      width: 45,
-                      height: 45,
+                      width: Dimensions.height45,
+                      height: Dimensions.height45,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius15),
                         color: Colors.blue,
                       ),
                       child: Icon(
                         Icons.search,
                         color: AppColors.mainColor,
+                        size: Dimensions.iconSize24,
                       ),
                     ),
                   ),
