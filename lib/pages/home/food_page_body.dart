@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
+import 'package:foodie/widgets/app_column.dart';
 import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/icon_text.dart';
 import 'package:foodie/widgets/small_text.dart';
@@ -111,58 +112,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 ],
               ),
               child: Container(
-                padding: EdgeInsets.only(
-                    top: Dimensions.height15, left: 15, right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const BigText(text: 'Chinese Side'),
-                    SizedBox(
-                      height: Dimensions.height10,
-                    ),
-                    Row(
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                            5,
-                            (index) => Icon(
-                              Icons.star,
-                              color: AppColors.mainColor,
-                              size: 15,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const SmallText(text: '4.5'),
-                        const SizedBox(width: 10),
-                        const SmallText(text: '1287'),
-                        const SizedBox(width: 10),
-                        const SmallText(text: 'comments'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconText(
-                            icon: Icons.circle_sharp,
-                            text: 'Normal',
-                            iconColor: AppColors.iconColor1),
-                        IconText(
-                            icon: Icons.location_on,
-                            text: '1.7 km',
-                            iconColor: AppColors.iconColor1),
-                        IconText(
-                            icon: Icons.access_time_rounded,
-                            text: '32 min',
-                            iconColor: AppColors.iconColor2)
-                      ],
-                    )
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.only(
+                      top: Dimensions.height15, left: 15, right: 15),
+                  child: const AppColumn(
+                    text: "Indian Side",
+                  )),
             ),
           )
         ],
