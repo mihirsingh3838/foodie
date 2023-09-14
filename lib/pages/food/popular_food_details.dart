@@ -4,6 +4,7 @@ import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_column.dart';
 import 'package:foodie/widgets/app_icon.dart';
 import 'package:foodie/widgets/big_text.dart';
+import 'package:foodie/widgets/expandable_text.dart';
 
 class PopularFoodDetails extends StatelessWidget {
   const PopularFoodDetails({super.key});
@@ -13,6 +14,7 @@ class PopularFoodDetails extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          //Image
           Positioned(
             left: 0,
             right: 0,
@@ -27,6 +29,7 @@ class PopularFoodDetails extends StatelessWidget {
               ),
             ),
           ),
+          //Icon
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
@@ -39,6 +42,7 @@ class PopularFoodDetails extends StatelessWidget {
               ],
             ),
           ),
+          //Introduction of food
           Positioned(
             left: 0,
             right: 0,
@@ -56,19 +60,28 @@ class PopularFoodDetails extends StatelessWidget {
                       topLeft: Radius.circular(Dimensions.radius20),
                     ),
                     color: Colors.white),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(
+                    const AppColumn(
                       text: "Chinese Side",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    BigText(text: "Introduce")
+                    const BigText(text: "Introduce"),
+                    SizedBox(height: Dimensions.height20,),
+                    const Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableText(
+                          text:
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+                        ),
+                      ),
+                    )
                   ],
                 )),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: Container(
