@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/pages/food/popular_food_details.dart';
+import 'package:foodie/pages/food/recomended_food_details.dart';
 import 'package:foodie/pages/home/main_food_page.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PopularFoodDetails(),
+      home: const RecomendedFoodDetail(),
     );
   }
 }
