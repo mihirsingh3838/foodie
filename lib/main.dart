@@ -3,8 +3,11 @@ import 'package:foodie/pages/food/popular_food_details.dart';
 import 'package:foodie/pages/food/recomended_food_details.dart';
 import 'package:foodie/pages/home/main_food_page.dart';
 import 'package:get/get.dart';
+import "package:foodie/helper/dependencies.dart" as dep;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 
