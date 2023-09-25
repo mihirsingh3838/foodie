@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
+import 'package:foodie/models/products_model.dart';
+import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_column.dart';
@@ -39,7 +41,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   }
 
 // Creating carousel which can be displayed for different food items
-  Widget _buildPageItem(index) {
+  Widget _buildPageItem(index, ProductModel popularProduct) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _curPageValue.floor()) {
       var curScale = 1 - (_curPageValue - index) * (1 - _scaleFactor);
@@ -78,9 +80,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               color: index.isEven
                   ? const Color(0xFF69c5df)
                   : const Color(0xFF9294cc),
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/image/food0.png'),
+                image: NetworkImage(
+                    "${AppConstants.BASE_URL}/uploads/${popularProduct.img!}"),
               ),
             ),
           ),
@@ -116,8 +119,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Container(
                   padding: EdgeInsets.only(
                       top: Dimensions.height10, left: 15, right: 15),
-                  child: const AppColumn(
-                    text: "Indian Side",
+                  child: AppColumn(
+                    text: popularProduct.name!,
                   )),
             ),
           )
@@ -139,7 +142,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 controller: pageController,
                 itemCount: popularProducts.popularProductList.length,
                 itemBuilder: ((context, position) {
-                  return _buildPageItem(position);
+                  return _buildPageItem(
+                      position, popularProducts.popularProductList[position]);
                 }),
               ),
             );
