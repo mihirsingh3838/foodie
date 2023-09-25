@@ -15,8 +15,10 @@ class PopularProductCotroller extends GetxController {
       print("Got Products");
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
-      print(_popularProductList);
+      //print(_popularProductList);
       update();
-    } else {}
+    } else {
+      print("Problem here");
+    }
   }
 }

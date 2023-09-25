@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/controllers/popular_product_controller.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_column.dart';
@@ -6,6 +7,7 @@ import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/icon_text.dart';
 import 'package:foodie/widgets/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:get/get.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({super.key});
@@ -113,7 +115,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ),
               child: Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions.height15, left: 15, right: 15),
+                      top: Dimensions.height10, left: 15, right: 15),
                   child: const AppColumn(
                     text: "Indian Side",
                   )),
@@ -128,28 +130,36 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          //In case of error in future try replacing sizedbox with container-
-          height: Dimensions.pageView,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: ((context, position) {
-              return _buildPageItem(position);
-            }),
-          ),
+        GetBuilder<PopularProductCotroller>(
+          builder: (popularProducts) {
+            return SizedBox(
+              //In case of error in future try replacing sizedbox with container-
+              height: Dimensions.pageView,
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.length,
+                itemBuilder: ((context, position) {
+                  return _buildPageItem(position);
+                }),
+              ),
+            );
+          },
         ),
-        DotsIndicator(
-          dotsCount: 5,
-          position: _curPageValue.toInt(),
-          decorator: DotsDecorator(
-            activeColor: AppColors.mainColor,
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
-        ),
+        GetBuilder<PopularProductCotroller>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount: popularProducts.popularProductList.isEmpty
+                ? 1
+                : popularProducts.popularProductList.length,
+            position: _curPageValue.toInt(),
+            decorator: DotsDecorator(
+              activeColor: AppColors.mainColor,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          );
+        }),
         SizedBox(
           height: Dimensions.height30,
         ),
