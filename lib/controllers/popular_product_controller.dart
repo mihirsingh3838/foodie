@@ -8,6 +8,9 @@ class PopularProductCotroller extends GetxController {
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
 
+  bool _isloaded = false;
+  bool get isloaded => _isloaded;
+
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
 
@@ -16,6 +19,7 @@ class PopularProductCotroller extends GetxController {
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
       //print(_popularProductList);
+      _isloaded = true;
       update();
     } else {
       print("Problem here");

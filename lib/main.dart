@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
+import 'package:foodie/controllers/recommended_product_controller.dart';
 import 'package:foodie/pages/food/popular_food_details.dart';
 import 'package:foodie/pages/food/recomended_food_details.dart';
 import 'package:foodie/pages/home/main_food_page.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductCotroller>().getPopularProductList();
+    Get.find<RecommendedProductCotroller>().getRecommendedProductList();
     return GetMaterialApp(
       //Use GetMaterial App instead of material app to use getx package
       debugShowCheckedModeBanner: true,
