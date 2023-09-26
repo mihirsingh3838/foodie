@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/controllers/recommended_product_controller.dart';
+import 'package:foodie/routes/route_helper.dart';
+import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_icon.dart';
 import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/expandable_text.dart';
+import 'package:get/get.dart';
 
 class RecomendedFoodDetail extends StatelessWidget {
-  const RecomendedFoodDetail({super.key});
+  const RecomendedFoodDetail({super.key, required this.pageId});
+  final int pageId;
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductCotroller>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 90,
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppIcon(icon: Icons.close),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getInitial());
+                },
+                child: const AppIcon(icon: Icons.close),
+              ),
               AppIcon(icon: Icons.shopping_cart_checkout_outlined),
             ],
           ),
@@ -37,7 +50,7 @@ class RecomendedFoodDetail extends StatelessWidget {
               ),
               child: Center(
                 child: BigText(
-                  text: "Chinese Side",
+                  text: product.name!,
                   size: Dimensions.font26,
                 ),
               ),
@@ -47,8 +60,8 @@ class RecomendedFoodDetail extends StatelessWidget {
           backgroundColor: AppColors.yellowColor,
           expandedHeight: 300,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset(
-              "assets/image/food0.png",
+            background: Image.network(
+              AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             ),
@@ -62,9 +75,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                   left: Dimensions.width20,
                   right: Dimensions.width20,
                 ),
-                child: const ExpandableText(
-                    text:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."),
+                child: ExpandableText(text: product.description!),
               ),
             ],
           ),
@@ -90,7 +101,7 @@ class RecomendedFoodDetail extends StatelessWidget {
                   iconSize: Dimensions.iconSize24,
                 ),
                 BigText(
-                  text: "₹12.88 " + "x" + " 0",
+                  text: "₹${product.price!} x 0",
                   color: AppColors.mainBlackColor,
                   size: Dimensions.font26,
                 ),

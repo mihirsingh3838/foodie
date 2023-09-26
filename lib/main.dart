@@ -4,6 +4,7 @@ import 'package:foodie/controllers/recommended_product_controller.dart';
 import 'package:foodie/pages/food/popular_food_details.dart';
 import 'package:foodie/pages/food/recomended_food_details.dart';
 import 'package:foodie/pages/home/main_food_page.dart';
+import 'package:foodie/routes/route_helper.dart';
 import 'package:get/get.dart';
 import "package:foodie/helper/dependencies.dart" as dep;
 
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MainFoodPage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }
