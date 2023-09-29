@@ -16,14 +16,11 @@ class RecommendedProductCotroller extends GetxController {
         await recommendedProductRepo.getRecommendedProductList();
 
     if (response.statusCode == 200) {
-      print("Got Products recommended");
       _recommendedProductList = [];
       _recommendedProductList.addAll(Product.fromJson(response.body).products);
       //print(_popularProductList);
       _isloaded = true;
       update();
-    } else {
-      print("Recommended Problem here");
-    }
+    } else {}
   }
 }
