@@ -19,7 +19,8 @@ class PopularFoodDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var product =
         Get.find<PopularProductCotroller>().popularProductList[pageId];
-    Get.find<PopularProductCotroller>().initProduct(product, Get.find<CartController>());
+    Get.find<PopularProductCotroller>()
+        .initProduct(product, Get.find<CartController>());
 
     return Scaffold(
         body: Stack(
@@ -55,7 +56,38 @@ class PopularFoodDetails extends StatelessWidget {
                     },
                     child: const AppIcon(icon: Icons.arrow_back),
                   ),
-                  AppIcon(icon: Icons.shopping_cart_outlined),
+                  GetBuilder<PopularProductCotroller>(builder: (controller) {
+                    return Stack(
+                      children: [
+                        const AppIcon(icon: Icons.shopping_cart_outlined),
+                        Get.find<PopularProductCotroller>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductCotroller>().totalItems >= 1
+                            ? Positioned(
+                                right: 7,
+                                top: 1,
+                                child: BigText(
+                                  text: Get.find<PopularProductCotroller>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    );
+                  })
                 ],
               ),
             ),
@@ -161,20 +193,21 @@ class PopularFoodDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(
-                        top: Dimensions.height20,
-                        bottom: Dimensions.height20,
-                        left: Dimensions.width20,
-                        right: Dimensions.width20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radius20),
-                      color: AppColors.mainColor,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        popularProduct.addItem(product);
-                      },
+                  GestureDetector(
+                    onTap: () {
+                      popularProduct.addItem(product);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: Dimensions.height20,
+                          bottom: Dimensions.height20,
+                          left: Dimensions.width20,
+                          right: Dimensions.width20),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius20),
+                        color: AppColors.mainColor,
+                      ),
                       child: BigText(
                         text: "₹ ${product.price!} | Add to Cart",
                         color: Colors.white,
