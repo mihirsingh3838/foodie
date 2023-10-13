@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
 import 'package:foodie/controllers/recommended_product_controller.dart';
+import 'package:foodie/pages/cart/cart_page.dart';
 import 'package:foodie/routes/route_helper.dart';
 import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
@@ -19,7 +20,7 @@ class RecomendedFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var product =
         Get.find<RecommendedProductCotroller>().recommendedProductList[pageId];
-        Get.find<PopularProductCotroller>()
+    Get.find<PopularProductCotroller>()
         .initProduct(product, Get.find<CartController>());
     return Scaffold(
         backgroundColor: Colors.white,
@@ -38,37 +39,42 @@ class RecomendedFoodDetail extends StatelessWidget {
                 ),
                 //AppIcon(icon: Icons.shopping_cart_checkout_outlined),
                 GetBuilder<PopularProductCotroller>(builder: (controller) {
-                    return Stack(
-                      children: [
-                        const AppIcon(icon: Icons.shopping_cart_outlined),
-                        Get.find<PopularProductCotroller>().totalItems >= 1
-                            ? Positioned(
-                                right: 0,
-                                top: 0,
+                  return Stack(
+                    children: [
+                      const AppIcon(icon: Icons.shopping_cart_outlined),
+                      Get.find<PopularProductCotroller>().totalItems >= 1
+                          ? Positioned(
+                              right: 0,
+                              top: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(() => const CartPage());
+                                },
                                 child: AppIcon(
                                   icon: Icons.circle,
                                   size: 20,
                                   iconColor: Colors.transparent,
                                   backgroundColor: AppColors.mainColor,
                                 ),
-                              )
-                            : Container(),
-                        Get.find<PopularProductCotroller>().totalItems >= 1
-                            ? Positioned(
-                                right: 7,
-                                top: 1,
-                                child: BigText(
-                                  text: Get.find<PopularProductCotroller>()
-                                      .totalItems
-                                      .toString(),
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    );
-                  }),
+                              ),
+                            )
+                          : Container(),
+                      Get.find<PopularProductCotroller>().totalItems >= 1
+                          ? Positioned(
+                              right: 7,
+                              top: 1,
+                              child: BigText(
+                                text: Get.find<PopularProductCotroller>()
+                                    .totalItems
+                                    .toString(),
+                                size: 12,
+                                color: Colors.white,
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  );
+                }),
               ],
             ),
             bottom: PreferredSize(

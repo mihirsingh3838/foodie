@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/data/repository/popular_product_repo.dart';
+import 'package:foodie/models/cart_model.dart';
 import 'package:foodie/models/products_model.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,10 @@ class PopularProductCotroller extends GetxController {
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
       );
+      if (_inCartItems > 0) {
+        _quantity -= _inCartItems;
+        return _quantity;
+      }
       return 0;
     } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar(
@@ -69,12 +74,12 @@ class PopularProductCotroller extends GetxController {
     _cart = cart;
     var exist = false;
     exist = _cart.existInCart(product);
-    print('Exist or not ' + exist.toString());
+    //print('Exist or not ' + exist.toString());
 
     if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    print('The quantity in the cart is ' + _inCartItems.toString());
+    //print('The quantity in the cart is ' + _inCartItems.toString());
   }
 
   void addItem(ProductModel product) {
@@ -83,15 +88,19 @@ class PopularProductCotroller extends GetxController {
     _inCartItems = _cart.getQuantity(product);
 
     _cart.items.forEach((key, value) {
-      print('The id is ' +
+      /*print('The id is ' +
           value.id.toString() +
           ' The quantity is ' +
-          value.quantity.toString());
+          value.quantity.toString());*/
     });
     update();
   }
 
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems {
+    return _cart.getItems;
   }
 }
