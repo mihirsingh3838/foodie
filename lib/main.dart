@@ -21,19 +21,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductCotroller>().getPopularProductList();
-    Get.find<RecommendedProductCotroller>().getRecommendedProductList();
-    return GetMaterialApp(
-      //Use GetMaterial App instead of material app to use getx package
-      debugShowCheckedModeBanner: true,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      //home: const MainFoodPage(),
-      initialRoute: RouteHelper.getInitial(),
-      getPages: RouteHelper.routes,
-    );
+    return GetBuilder<PopularProductCotroller>(builder: (_) {
+      return GetBuilder<RecommendedProductCotroller>(builder: (_) {
+        return GetMaterialApp(
+          //Use GetMaterial App instead of material app to use getx package
+          debugShowCheckedModeBanner: true,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          //home: const MainFoodPage(),
+          initialRoute: RouteHelper.getSplashPage(),
+          getPages: RouteHelper.routes,
+        );
+      });
+    });
   }
 }
